@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>风格迁移案例</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-fileinput.css" rel="stylesheet">
+</head>
+<body>
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        <div class="container">
+        <div class="page-header">
+            <h1>风格迁移案例</h1>
+        </div>
+        <!-- 原始图片 -->
+        <div class="page-header">
+            <h3>原始图片</h3>
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new" data-provides="fileinput" id="exampleInputUpload_1">
+                    <div class="fileinput-new thumbnail" style="width: 200px;height: auto;max-height: 150px">
+                        <img id="image" style="width: 100%;height: auto;max-height: 140px" src="image/noimage.png">
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px;max-height: 150px"></div>
+                    <div>
+                        <span class="btn btn-primary btn-file">
+                            <span class="fileinput-new">选择文件</span>
+                            <span class="fileinput-exists">换一张</span>
+                            <!-- 注意name -->
+                            <input type="file" name="image">
+                        </span>
+                        <a href="javascript:;" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">移除</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 风格图片 -->
+        <div class="page-header">
+            <h3>风格图片</h3>
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new" data-provides="fileinput" id="exampleInputUpload_2">
+                    <div class="fileinput-new thumbnail" style="width: 200px;height: auto;max-height: 150px">
+                        <img id="style" style="width: 100%;height: auto;max-height: 140px" src="image/noimage.png">
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px;max-height: 150px"></div>
+                    <div>
+                        <span class="btn btn-primary btn-file">
+                            <span class="fileinput-new">选择文件</span>
+                            <span class="fileinput-exists">换一张</span>
+                            <!-- 注意name -->
+                            <input type="file" name="style">
+                        </span>
+                        <a href="javascript:;" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">移除</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="uploadSubmit" type="button" class="btn btn-info">生成</button>
+        <!-- 通过算法生成的图片 -->
+        <div class="page-header">
+            <h3>生成的图片</h3>
+            <div class="form-group">
+                <div class="fileinput fileinput-new" data-provides="fileinput" id="exampleInputUpload_3">
+                    <div class="fileinput-new thumbnail" style="width: 200px;height: auto;max-height: 150px">
+                        <img id="ai-image" style="width: 100%;height: auto;max-height: 140px" src="image/noimage.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+
+
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap-fileinput.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            $('#uploadSubmit').click(function () {
+
+                var data = new FormData($('#uploadForm')[0]);
+                $.ajax({
+                    url:[[@{~/getImage}]],
+                    type:'post',
+                    data:data,
+                    async:false,
+                    cache:false,
+                    contentType:false,
+                    processData:false,
+                    success:function (data) {
+                        document.getElementById('ai-image').src = data
+                    },
+                    error:function (data){
+                        alert(data)
+                    }
+                })
+
+            })
+        })
+
+
+    </script>
+
+</body>
+</html>

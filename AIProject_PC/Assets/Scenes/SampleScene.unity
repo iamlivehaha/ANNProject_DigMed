@@ -636,11 +636,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ImagePanel
       objectReference: {fileID: 0}
-    - target: {fileID: 6318431815707640728, guid: 0f85afe2ffe22a5438452b65e5c95ff6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6318431815707640729, guid: 0f85afe2ffe22a5438452b65e5c95ff6,
         type: 3}
       propertyPath: m_LocalPosition.x
